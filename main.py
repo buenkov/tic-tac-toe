@@ -76,6 +76,17 @@ def check_winners(winner):
     else:
         return "-"
 
+#функция проверки на ничью
+def check_draw():
+    draw = True
+    for i in range(1,4):
+        for j in range(1,4):
+            draw = draw and dict_board[i,j] != "-"
+    if draw:
+        return True
+    else:
+        return False
+
 
 #сама программа
 
@@ -85,12 +96,16 @@ view_board(dict_board)
 
 
 while True:
-    move = next(move_generator)
-    moving(move)
-    view_board(dict_board)
-    if check_winners("x") == "x":
-        print("Победил x")
+    if check_draw():
+        print("Ничья")
         break
-    elif check_winners("o") == "o":
-        print("Победил o")
-        break
+    else:
+        move = next(move_generator)
+        moving(move)
+        view_board(dict_board)
+        if check_winners("x") == "x":
+            print("Победил x")
+            break
+        elif check_winners("o") == "o":
+            print("Победил o")
+            break
